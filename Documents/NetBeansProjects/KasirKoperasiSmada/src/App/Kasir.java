@@ -33,7 +33,7 @@ public class Kasir extends javax.swing.JFrame {
             }
         });
 
-        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/KasirFix.svg")));
+        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Kasir-Fix.svg")));
     }
 
     @SuppressWarnings("unchecked")
@@ -42,6 +42,9 @@ public class Kasir extends javax.swing.JFrame {
 
         TotalHargaSeluruh2 = new javax.swing.JTextField();
         JBarang3 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         BtnBarang = new javax.swing.JLabel();
@@ -69,6 +72,19 @@ public class Kasir extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel3.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel3.setText("Kembali");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 470, 180, 30));
+
+        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel2.setText("Tunai");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 340, 180, 30));
+
+        jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel1.setText("Total");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 210, 180, 30));
+
+        table.setForeground(new java.awt.Color(204, 204, 204));
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -77,31 +93,34 @@ public class Kasir extends javax.swing.JFrame {
                 "Nama Barang", "Harga", "Qty", "Subtotal"
             }
         ));
+        table.setGridColor(new java.awt.Color(255, 255, 255));
         table.setPreferredSize(new java.awt.Dimension(876, 485));
+        table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(table);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 890, 490));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, 890, 520));
 
         BtnBarang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnBarangMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 349, 172, 42));
+        getContentPane().add(BtnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 213, 192, 58));
 
         BtnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnDashboardMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 187, 173, 50));
+        getContentPane().add(BtnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 35, 192, 58));
 
         BtnLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnLaporanMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 431, 174, 42));
+        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 302, 192, 58));
 
         BtnUser.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -113,14 +132,14 @@ public class Kasir extends javax.swing.JFrame {
                 BtnUserMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 187, 173, 50));
+        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 391, 192, 58));
 
         barcodeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 barcodeTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(barcodeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 54, 876, 60));
+        getContentPane().add(barcodeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 890, 40));
 
         TxtKembalian.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TxtKembalian.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -133,11 +152,11 @@ public class Kasir extends javax.swing.JFrame {
                 TxtKembalianActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtKembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(1153, 499, 180, 60));
+        getContentPane().add(TxtKembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 499, 180, 60));
 
         TxtTotalHarga1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TxtTotalHarga1.setBorder(null);
-        getContentPane().add(TxtTotalHarga1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1153, 324, 180, 60));
+        getContentPane().add(TxtTotalHarga1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 250, 180, 60));
 
         TxtBayar1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TxtBayar1.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +164,7 @@ public class Kasir extends javax.swing.JFrame {
                 TxtBayar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtBayar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1153, 409, 180, 60));
+        getContentPane().add(TxtBayar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 370, 180, 60));
 
         BtnBayar.setText("Bayar");
         BtnBayar.addActionListener(new java.awt.event.ActionListener() {
@@ -153,10 +172,11 @@ public class Kasir extends javax.swing.JFrame {
                 BtnBayarActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1153, 580, 180, 60));
+        getContentPane().add(BtnBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 610, 180, 60));
         getContentPane().add(svg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/KasirFix.png"))); // NOI18N
+        png.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Kasir-Fix.png"))); // NOI18N
         getContentPane().add(png, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -424,6 +444,9 @@ if (TxtTotalHarga1.getText().isEmpty() || TxtBayar1.getText().isEmpty()) {
     private javax.swing.JTextField TxtKembalian;
     private javax.swing.JTextField TxtTotalHarga1;
     private javax.swing.JTextField barcodeTextField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel png;
     private javax.swing.JLabel svg;
