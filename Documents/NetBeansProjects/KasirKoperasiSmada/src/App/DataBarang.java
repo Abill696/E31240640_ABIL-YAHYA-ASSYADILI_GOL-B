@@ -18,10 +18,13 @@ public class DataBarang extends javax.swing.JFrame {
 
     public DataBarang() {
         initComponents();
+        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         connect();
         loadData("");
         svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Barang-Fix.svg")));
-        
+
         jTextField1.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
                 search();

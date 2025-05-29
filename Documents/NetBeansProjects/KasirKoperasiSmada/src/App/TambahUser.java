@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 
 /**
@@ -26,6 +27,9 @@ public class TambahUser extends javax.swing.JFrame {
      */
     public TambahUser() {
         initComponents();
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         jLabel1.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Tambah User.svg")));
     }
 

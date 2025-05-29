@@ -8,11 +8,14 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.*;
+import javax.swing.JFrame;
 
 public class TambahBarang extends javax.swing.JFrame {
 
     public TambahBarang() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         jLabel1.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Tambah Barang (2).svg")));
     }
 
@@ -138,74 +141,72 @@ public class TambahBarang extends javax.swing.JFrame {
         String hargaBarang = TxtHargaBarang.getText().trim();
         String barcodeBarang = TxtBarcode.getText().trim();
 
-    if (namaBarang.isEmpty() || stokBarang.isEmpty() || hargaBarang.isEmpty() || barcodeBarang.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    try {
-        int stokBaru = Integer.parseInt(stokBarang);
-        double harga = Double.parseDouble(hargaBarang);
-
-    try (Connection connection = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/revisidatabase", "root", "");
-         PreparedStatement checkStatement = connection.prepareStatement(
-                "SELECT Stok, Harga FROM barang WHERE Nama_Barang = ?")) {
-
-        checkStatement.setString(1, namaBarang);
-
-        try (ResultSet resultSet = checkStatement.executeQuery()) {
-            if (resultSet.next()) {
-                // Barang sudah ada, update stok
-                int stokLama = resultSet.getInt("Stok");
-                double hargaLama = resultSet.getDouble("Harga");
-
-                if (Double.compare(hargaLama, harga) != 0) {
-                    JOptionPane.showMessageDialog(this, "Harga barang tidak sesuai dengan yang ada di database!", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                int stokBaruTotal = stokLama + stokBaru;
-                try (PreparedStatement updateStatement = connection.prepareStatement(
-                        "UPDATE barang SET Stok = ? WHERE Nama_Barang = ?")) {
-                    updateStatement.setInt(1, stokBaruTotal);
-                    updateStatement.setString(2, namaBarang);
-                    updateStatement.executeUpdate();
-                }
-
-                JOptionPane.showMessageDialog(this, "Stok barang berhasil diperbarui.");
-            } else {
-                // Barang belum ada, generate ID_Barang otomatis
-                String newIdBarang = "BRG001";
-                try (Statement idStmt = connection.createStatement();
-                     ResultSet idRs = idStmt.executeQuery("SELECT MAX(ID_Barang) AS max_id FROM barang")) {
-
-                    if (idRs.next() && idRs.getString("max_id") != null) {
-                        String maxId = idRs.getString("max_id"); // Misal: "BRG005"
-                        int number = Integer.parseInt(maxId.substring(3)) + 1;
-                        newIdBarang = String.format("BRG%03d", number);
-                    }
-                }
-
-                try (PreparedStatement insertStatement = connection.prepareStatement(
-                        "INSERT INTO barang (ID_Barang, Nama_Barang, Stok, Harga, Barcode) VALUES (?, ?, ?, ?, ?)")) {
-                    insertStatement.setString(1, newIdBarang);
-                    insertStatement.setString(2, namaBarang);
-                    insertStatement.setInt(3, stokBaru);
-                    insertStatement.setDouble(4, harga);
-                    insertStatement.setString(5, barcodeBarang);
-                    insertStatement.executeUpdate();
-                }
-
-                JOptionPane.showMessageDialog(this, "Barang baru berhasil ditambahkan dengan ID: " + newIdBarang);
-                }
-            }
+        if (namaBarang.isEmpty() || stokBarang.isEmpty() || hargaBarang.isEmpty() || barcodeBarang.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-        TxtNamaBarang.setText("");
-        TxtStockBarang.setText("");
-        TxtHargaBarang.setText("");
-        TxtBarcode.setText("");
+        try {
+            int stokBaru = Integer.parseInt(stokBarang);
+            double harga = Double.parseDouble(hargaBarang);
+
+            try (Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/revisidatabase", "root", ""); PreparedStatement checkStatement = connection.prepareStatement(
+                            "SELECT Stok, Harga FROM barang WHERE Nama_Barang = ?")) {
+
+                checkStatement.setString(1, namaBarang);
+
+                try (ResultSet resultSet = checkStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        // Barang sudah ada, update stok
+                        int stokLama = resultSet.getInt("Stok");
+                        double hargaLama = resultSet.getDouble("Harga");
+
+                        if (Double.compare(hargaLama, harga) != 0) {
+                            JOptionPane.showMessageDialog(this, "Harga barang tidak sesuai dengan yang ada di database!", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        int stokBaruTotal = stokLama + stokBaru;
+                        try (PreparedStatement updateStatement = connection.prepareStatement(
+                                "UPDATE barang SET Stok = ? WHERE Nama_Barang = ?")) {
+                            updateStatement.setInt(1, stokBaruTotal);
+                            updateStatement.setString(2, namaBarang);
+                            updateStatement.executeUpdate();
+                        }
+
+                        JOptionPane.showMessageDialog(this, "Stok barang berhasil diperbarui.");
+                    } else {
+                        // Barang belum ada, generate ID_Barang otomatis
+                        String newIdBarang = "BRG001";
+                        try (Statement idStmt = connection.createStatement(); ResultSet idRs = idStmt.executeQuery("SELECT MAX(ID_Barang) AS max_id FROM barang")) {
+
+                            if (idRs.next() && idRs.getString("max_id") != null) {
+                                String maxId = idRs.getString("max_id"); // Misal: "BRG005"
+                                int number = Integer.parseInt(maxId.substring(3)) + 1;
+                                newIdBarang = String.format("BRG%03d", number);
+                            }
+                        }
+
+                        try (PreparedStatement insertStatement = connection.prepareStatement(
+                                "INSERT INTO barang (ID_Barang, Nama_Barang, Stok, Harga, Barcode) VALUES (?, ?, ?, ?, ?)")) {
+                            insertStatement.setString(1, newIdBarang);
+                            insertStatement.setString(2, namaBarang);
+                            insertStatement.setInt(3, stokBaru);
+                            insertStatement.setDouble(4, harga);
+                            insertStatement.setString(5, barcodeBarang);
+                            insertStatement.executeUpdate();
+                        }
+
+                        JOptionPane.showMessageDialog(this, "Barang baru berhasil ditambahkan dengan ID: " + newIdBarang);
+                    }
+                }
+            }
+
+            TxtNamaBarang.setText("");
+            TxtStockBarang.setText("");
+            TxtHargaBarang.setText("");
+            TxtBarcode.setText("");
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Stok dan harga harus berupa angka!", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -242,7 +243,7 @@ public class TambahBarang extends javax.swing.JFrame {
     private void TxtHargaBarangFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtHargaBarangFocusGained
         if (TxtHargaBarang.getText().equals("Input Harga Barang")) {
             TxtHargaBarang.setText("");
-        }       
+        }
     }//GEN-LAST:event_TxtHargaBarangFocusGained
 
     private void TxtHargaBarangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtHargaBarangFocusLost
@@ -261,7 +262,7 @@ public class TambahBarang extends javax.swing.JFrame {
         }    }//GEN-LAST:event_TxtStockBarangFocusLost
 
     private void TxtBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBarcodeActionPerformed
-        
+
     }//GEN-LAST:event_TxtBarcodeActionPerformed
 
     private void TxtBarcodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtBarcodeFocusGained
@@ -274,8 +275,8 @@ public class TambahBarang extends javax.swing.JFrame {
             TxtBarcode.setText("Scan Barcode Barang");}    }//GEN-LAST:event_TxtBarcodeFocusLost
 
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
