@@ -1,11 +1,14 @@
 package App;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import javax.swing.JFrame;
 
 public class Dashboard extends javax.swing.JFrame {
 
     public Dashboard() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Dashboard-FIx.svg")));
     }
 

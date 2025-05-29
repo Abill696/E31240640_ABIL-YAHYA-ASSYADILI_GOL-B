@@ -11,10 +11,12 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
         svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Login-Fix (1).svg")));
         user.setIcon(new FlatSVGIcon(getClass().getResource("/Design/user.svg")));
         lock.setIcon(new FlatSVGIcon(getClass().getResource("/Design/lock.svg")));
+        
         Username.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
                 checkRFID();
@@ -57,6 +59,7 @@ public class Login extends javax.swing.JFrame {
         });
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
