@@ -20,8 +20,26 @@ public class DataBarang extends javax.swing.JFrame {
         initComponents();
         connect();
         loadData("");
-        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Barang.svg")));
+        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Barang-Fix.svg")));
+        
+        jTextField1.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                search();
+            }
 
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                search();
+            }
+
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                search();
+            }
+
+            private void search() {
+                String keyword = jTextField1.getText();
+                loadData(keyword);
+            }
+        });
     }
 
     // Koneksi ke database
@@ -36,11 +54,11 @@ public class DataBarang extends javax.swing.JFrame {
 
     void loadData(String keyword) {
         DefaultTableModel model = new DefaultTableModel(
-                new String[]{"ID Barang", "Nama Barang", "Harga", "Stok", "Barcode"}, 0
+                new String[]{"Nama Barang", "Harga", "Stok", "Barcode"}, 0
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Membuat semua sel di tabel tidak bisa diubah
+                return false;
             }
         };
 
@@ -60,7 +78,6 @@ public class DataBarang extends javax.swing.JFrame {
 
             while (rs.next()) {
                 model.addRow(new Object[]{
-                    rs.getString("ID_Barang"),
                     rs.getString("Nama_Barang"),
                     kursIndonesia.format(rs.getDouble("Harga")),
                     rs.getInt("Stok"),
@@ -86,7 +103,6 @@ public class DataBarang extends javax.swing.JFrame {
         TblBarang = new javax.swing.JTable();
         BtnDashboard = new javax.swing.JLabel();
         BtnLaporan = new javax.swing.JLabel();
-        BtnBarang = new javax.swing.JLabel();
         BtnKasir = new javax.swing.JLabel();
         BtnUser = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -100,13 +116,13 @@ public class DataBarang extends javax.swing.JFrame {
 
         TblBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "NO TRANSAKSI", "NAMA BARANG", "STOK", "HARGA", "BARCODE"
+                "NAMA BARANG", "STOK", "HARGA", "BARCODE"
             }
         ));
         jScrollPane1.setViewportView(TblBarang);
@@ -118,35 +134,34 @@ public class DataBarang extends javax.swing.JFrame {
                 BtnDashboardMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 170, 50));
+        getContentPane().add(BtnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 35, 192, 58));
 
         BtnLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnLaporanMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 170, 50));
-
-        BtnBarang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnBarangMouseClicked(evt);
-            }
-        });
-        getContentPane().add(BtnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 180, 60));
+        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 302, 192, 58));
 
         BtnKasir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnKasirMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 170, 50));
+        getContentPane().add(BtnKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 124, 192, 58));
 
         BtnUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnUserMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 170, 50));
+        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 391, 192, 58));
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 55, 890, 66));
 
         BtnHapus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -168,7 +183,7 @@ public class DataBarang extends javax.swing.JFrame {
         getContentPane().add(BtnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 662, 185, 60));
         getContentPane().add(svg, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 0, -1, -1));
 
-        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Barang.png"))); // NOI18N
+        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Barang-Fix.png"))); // NOI18N
         getContentPane().add(png, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -184,36 +199,36 @@ public class DataBarang extends javax.swing.JFrame {
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
         try {
-        Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/kasirkoperasismada", "root", "");
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/kasirkoperasismada", "root", "");
 
-        int selecrow = TblBarang.getSelectedRow();
-        if (selecrow == -1) {
-            JOptionPane.showMessageDialog(this, "Silahkan pilih baris yang ingin dihapus");
-            return;
-        }
-
-        int confirm = JOptionPane.showConfirmDialog(this, "Apakah yakin ingin menghapus baris ini!",
-                "Konfirmasi", JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            
-            String idBarang = TblBarang.getValueAt(selecrow, 0).toString().trim(); 
-
-            System.out.println("ID Barang yang akan dihapus: " + idBarang);
-
-            PreparedStatement delete = connection.prepareStatement("DELETE FROM barang WHERE id_barang = ?");
-            delete.setString(1, idBarang);
-            int rowdelete = delete.executeUpdate();
-
-            if (rowdelete > 0) {
-                DefaultTableModel model = (DefaultTableModel) TblBarang.getModel();
-                model.removeRow(selecrow);
-                JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
-            } else {
-                JOptionPane.showMessageDialog(this, "Data tidak ditemukan!");
+            int selecrow = TblBarang.getSelectedRow();
+            if (selecrow == -1) {
+                JOptionPane.showMessageDialog(this, "Silahkan pilih baris yang ingin dihapus");
+                return;
             }
-        }
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Apakah yakin ingin menghapus baris ini!",
+                    "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+
+                String NamaBarang = TblBarang.getValueAt(selecrow, 0).toString().trim();
+
+                System.out.println("Nama Barang yang akan dihapus: " + NamaBarang);
+
+                PreparedStatement delete = connection.prepareStatement("DELETE FROM barang WHERE Nama_Barang = ?");
+                delete.setString(1, NamaBarang);
+                int rowdelete = delete.executeUpdate();
+
+                if (rowdelete > 0) {
+                    DefaultTableModel model = (DefaultTableModel) TblBarang.getModel();
+                    model.removeRow(selecrow);
+                    JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Data tidak ditemukan!");
+                }
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
         }
@@ -235,14 +250,6 @@ public class DataBarang extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BtnKasirMouseClicked
 
-    private void BtnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBarangMouseClicked
-        DataBarang d = new DataBarang();
-        d.setVisible(true);
-        d.pack();
-        d.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_BtnBarangMouseClicked
-
     private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
         Laporan d = new Laporan();
         d.setVisible(true);
@@ -258,6 +265,10 @@ public class DataBarang extends javax.swing.JFrame {
         d.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BtnUserMouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,7 +307,6 @@ public class DataBarang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BtnBarang;
     private javax.swing.JLabel BtnDashboard;
     private javax.swing.JButton BtnHapus;
     private javax.swing.JLabel BtnKasir;

@@ -73,18 +73,23 @@ public class Kasir extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Kembali");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 470, 180, 30));
 
         jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Tunai");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 340, 180, 30));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Total");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 210, 180, 30));
 
-        table.setForeground(new java.awt.Color(204, 204, 204));
+        table.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); // NOI18N
+        table.setForeground(new java.awt.Color(0, 0, 0));
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -93,7 +98,7 @@ public class Kasir extends javax.swing.JFrame {
                 "Nama Barang", "Harga", "Qty", "Subtotal"
             }
         ));
-        table.setGridColor(new java.awt.Color(255, 255, 255));
+        table.setGridColor(new java.awt.Color(153, 153, 153));
         table.setPreferredSize(new java.awt.Dimension(876, 485));
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
@@ -166,6 +171,8 @@ public class Kasir extends javax.swing.JFrame {
         });
         getContentPane().add(TxtBayar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 370, 180, 60));
 
+        BtnBayar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        BtnBayar.setForeground(new java.awt.Color(255, 255, 255));
         BtnBayar.setText("Bayar");
         BtnBayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
