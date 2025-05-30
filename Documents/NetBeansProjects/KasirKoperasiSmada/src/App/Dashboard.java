@@ -75,6 +75,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void BtnKasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnKasirMouseClicked
         Kasir abc = new Kasir();
+        
         abc.setVisible(true);
         abc.pack();
         abc.setLocationRelativeTo(null);
