@@ -7,6 +7,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     public Dashboard() {
         initComponents();
+        
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Dashboard-FIx.svg")));
