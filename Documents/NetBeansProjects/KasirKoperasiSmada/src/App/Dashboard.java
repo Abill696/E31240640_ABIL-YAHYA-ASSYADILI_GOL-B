@@ -91,7 +91,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnStockMouseClicked
 
     private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
-        Laporan abc = new Laporan();
+        RiwayatPembelian abc = new RiwayatPembelian();
         abc.setVisible(true);
         abc.pack();
         abc.setLocationRelativeTo(null);
