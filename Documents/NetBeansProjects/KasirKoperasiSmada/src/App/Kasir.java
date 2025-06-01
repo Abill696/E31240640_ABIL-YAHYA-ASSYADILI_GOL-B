@@ -459,4 +459,5 @@ public class Kasir extends javax.swing.JFrame {
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
+    
 }
