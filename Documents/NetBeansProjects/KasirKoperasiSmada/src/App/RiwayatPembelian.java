@@ -6,6 +6,9 @@ import java.awt.event.*;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Frame;
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -43,14 +46,21 @@ public class RiwayatPembelian extends javax.swing.JFrame {
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/kasirkoperasismada", "root", ""); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
+            DecimalFormat tanpaKoma = new DecimalFormat("#,###");
+            DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+            formatRp.setGroupingSeparator('.');
+            formatRp.setMonetaryDecimalSeparator(',');
+            tanpaKoma.setDecimalFormatSymbols(formatRp);
+            tanpaKoma.setMaximumFractionDigits(0);
+
             int no = 1;
             while (rs.next()) {
                 model.addRow(new Object[]{
                     no++,
                     rs.getString("ID_Transaksi"),
-                    rs.getDouble("Total_Harga"),
-                    rs.getDouble("Bayar"),
-                    rs.getDouble("Kembalian"),
+                    "Rp. " + tanpaKoma.format(rs.getDouble("Total_Harga")),
+                    "Rp. " + tanpaKoma.format(rs.getDouble("Bayar")),
+                    "Rp. " + tanpaKoma.format(rs.getDouble("Kembalian")),
                     rs.getDate("Tanggal"),
                     rs.getString("Kasir")
                 });
@@ -173,13 +183,20 @@ public class RiwayatPembelian extends javax.swing.JFrame {
             ResultSet rs = pst.executeQuery();
             int no = 1;
 
+            DecimalFormat tanpaKoma = new DecimalFormat("#,###");
+            DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+            formatRp.setGroupingSeparator('.');
+            formatRp.setMonetaryDecimalSeparator(',');
+            tanpaKoma.setDecimalFormatSymbols(formatRp);
+            tanpaKoma.setMaximumFractionDigits(0);
+
             while (rs.next()) {
                 model.addRow(new Object[]{
                     no++,
-                    rs.getInt("ID_Transaksi"),
-                    rs.getDouble("Total_Harga"),
-                    rs.getDouble("Bayar"),
-                    rs.getDouble("Kembalian"),
+                    rs.getString("ID_Transaksi"),
+                    "Rp. " + tanpaKoma.format(rs.getDouble("Total_Harga")),
+                    "Rp. " + tanpaKoma.format(rs.getDouble("Bayar")),
+                    "Rp. " + tanpaKoma.format(rs.getDouble("Kembalian")),
                     rs.getDate("Tanggal"),
                     rs.getString("Kasir")
                 });
