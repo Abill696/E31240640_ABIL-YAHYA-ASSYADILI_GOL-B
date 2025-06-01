@@ -74,6 +74,7 @@ public class DetailTransaksi extends JDialog {
         if (rs.next()) {
             namaBarang = rs.getString("Nama_Barang");
         }
+        
         return namaBarang;
     }
 }
