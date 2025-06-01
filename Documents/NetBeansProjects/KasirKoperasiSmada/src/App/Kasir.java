@@ -172,7 +172,7 @@ public class Kasir extends javax.swing.JFrame {
         getContentPane().add(TxtBayar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 370, 180, 60));
 
         BtnBayar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        BtnBayar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnBayar.setForeground(new java.awt.Color(0, 0, 0));
         BtnBayar.setText("Bayar");
         BtnBayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,7 +250,7 @@ public class Kasir extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtBayar1ActionPerformed
 
     private void BtnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBayarActionPerformed
-if (TxtTotalHarga1.getText().isEmpty() || TxtBayar1.getText().isEmpty()) {
+        if (TxtTotalHarga1.getText().isEmpty() || TxtBayar1.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Total harga dan Pembayaran tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -286,7 +286,8 @@ if (TxtTotalHarga1.getText().isEmpty() || TxtBayar1.getText().isEmpty()) {
                 idTransaksi = 0;
                 if (generatedKeys.next()) {
                     idTransaksi = generatedKeys.getInt(1);
-                }   DefaultTableModel tbl = (DefaultTableModel) table.getModel();
+                }
+                DefaultTableModel tbl = (DefaultTableModel) table.getModel();
                 for (int i = 0; i < tbl.getRowCount(); i++) {
                     String namaBarang = tbl.getValueAt(i, 0).toString();
                     double hargaBarang = Double.parseDouble(tbl.getValueAt(i, 1).toString());
@@ -297,30 +298,30 @@ if (TxtTotalHarga1.getText().isEmpty() || TxtBayar1.getText().isEmpty()) {
                     try (PreparedStatement getBarangStatement = connection.prepareStatement(getBarangQuery)) {
                         getBarangStatement.setString(1, namaBarang);
                         ResultSet barangResult = getBarangStatement.executeQuery();
-                        
+
                         int idBarang = 0;
                         int currentStock = 0;
                         if (barangResult.next()) {
                             idBarang = barangResult.getInt("ID_Barang");
                             currentStock = barangResult.getInt("Stok");
-                            
+
                             // Check if stock is sufficient
                             if (currentStock < jumlahBarang) {
                                 JOptionPane.showMessageDialog(this, "Stok tidak mencukupi untuk barang: " + namaBarang, "Error", JOptionPane.ERROR_MESSAGE);
                                 return;
                             }
                         }
-                        
+
                         // Insert into detail_transaksi
                         String insertBarangTerjualQuery = "INSERT INTO detail_transaksi (ID_Transaksi, ID_Barang, Qty, Subtotal) VALUES (?, ?, ?, ?)";
                         PreparedStatement barangTerjualStatement = connection.prepareStatement(insertBarangTerjualQuery);
-                        
+
                         barangTerjualStatement.setInt(1, idTransaksi);
                         barangTerjualStatement.setInt(2, idBarang);
                         barangTerjualStatement.setInt(3, jumlahBarang);
                         barangTerjualStatement.setDouble(4, totalPenjualan);
                         barangTerjualStatement.executeUpdate();
-                        
+
                         // Update stock in barang table
                         int newStock = currentStock - jumlahBarang;
                         String updateStockQuery = "UPDATE barang SET Stok = ? WHERE ID_Barang = ?";
@@ -328,7 +329,7 @@ if (TxtTotalHarga1.getText().isEmpty() || TxtBayar1.getText().isEmpty()) {
                         updateStockStatement.setInt(1, newStock);
                         updateStockStatement.setInt(2, idBarang);
                         updateStockStatement.executeUpdate();
-                        
+
                         // Close statements
                         barangTerjualStatement.close();
                         updateStockStatement.close();
@@ -348,32 +349,30 @@ if (TxtTotalHarga1.getText().isEmpty() || TxtBayar1.getText().isEmpty()) {
             TxtBayar1.setText("");
             TxtKembalian.setText("");
 
-          
             int cetak = JOptionPane.showConfirmDialog(this, "Transaksi berhasil!\nApakah Anda ingin mencetak struk?", "Cetak Struk", JOptionPane.YES_NO_OPTION);
 
             if (cetak == JOptionPane.YES_OPTION) {
                 try {
-                // Compile file .jrxml
-                String jrxmlPath = "src/Nota/report1.jrxml";
-                JasperReport jasperReport = JasperCompileManager.compileReport(jrxmlPath);
+                    String jrxmlPath = "src/Nota/report1_fixed.jrxml";
+                    JasperReport jasperReport = JasperCompileManager.compileReport(jrxmlPath);
 
-                // Siapkan parameter
-                Map<String, Object> parameters = new HashMap<>();
-                parameters.put("ID_Transaksi", idTransaksi);
+                    // Siapkan parameter
+                    Map<String, Object> parameters = new HashMap<>();
+                    parameters.put("ID_Transaksi", idTransaksi);
 
-                try (Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/kasirkoperasismada",
-                        "root",
-                        ""
-                )) {
-                    // Isi dan tampilkan laporan
-                    JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, connection);
-                    JasperViewer.viewReport(print, false);
+                    try (Connection connection = DriverManager.getConnection(
+                            "jdbc:mysql://localhost:3306/kasirkoperasismada",
+                            "root",
+                            ""
+                    )) {
+                        // Isi dan tampilkan laporan
+                        JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, connection);
+                        JasperViewer.viewReport(print, false);
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Gagal mencetak struk: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Gagal mencetak struk: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
 
             }
 
@@ -401,8 +400,11 @@ if (TxtTotalHarga1.getText().isEmpty() || TxtBayar1.getText().isEmpty()) {
     }//GEN-LAST:event_BtnBarangMouseClicked
 
     private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnLaporanMouseClicked
+        RiwayatPembelian abc = new RiwayatPembelian();
+        abc.setVisible(true);
+        abc.pack();
+        abc.setLocationRelativeTo(null);
+        this.dispose();    }//GEN-LAST:event_BtnLaporanMouseClicked
 
     private void BtnUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUserMouseClicked
         // TODO add your handling code here:

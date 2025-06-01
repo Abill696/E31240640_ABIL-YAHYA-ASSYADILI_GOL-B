@@ -187,7 +187,7 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnKasirMouseClicked
 
     private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
-        Laporan l = new Laporan();
+        RiwayatPembelian l = new RiwayatPembelian();
         l.setVisible(true);
         l.pack();
         l.setLocationRelativeTo(null);
