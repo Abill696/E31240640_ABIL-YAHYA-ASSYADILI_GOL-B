@@ -31,11 +31,15 @@ public class RiwayatPembelian extends javax.swing.JFrame {
 
     private void tampilkanData() {
         DefaultTableModel model = (DefaultTableModel) TblLaporan.getModel();
-        model.setRowCount(0); // Clear previous data
+        model.setColumnIdentifiers(new String[]{
+            "No", "ID Transaksi", "Total Harga", "Bayar", "Kembalian", "Tanggal", "Kasir"
+        });
+        model.setRowCount(0);
 
-        String sql = "SELECT t.ID_Transaksi, t.Tanggal, t.Jumlah_Harga, "
-                + "u.Username AS Nama_Kasir FROM transaksi t "
-                + "JOIN users u ON t.ID_User = u.ID_User"; // Removed "Kasir" field
+        String sql = "SELECT t.ID_Transaksi, t.Jumlah_Harga AS Total_Harga, t.Pembayaran AS Bayar, "
+                + "t.Kembalian, t.Tanggal, u.Username AS Kasir "
+                + "FROM transaksi t "
+                + "JOIN users u ON t.ID_User = u.ID_User";
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/kasirkoperasismada", "root", ""); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -44,9 +48,11 @@ public class RiwayatPembelian extends javax.swing.JFrame {
                 model.addRow(new Object[]{
                     no++,
                     rs.getString("ID_Transaksi"),
-                    rs.getString("Jumlah_Harga"),
-                    rs.getString("Nama_Kasir"), // Field renamed accordingly
-                    rs.getDate("Tanggal")
+                    rs.getDouble("Total_Harga"),
+                    rs.getDouble("Bayar"),
+                    rs.getDouble("Kembalian"),
+                    rs.getDate("Tanggal"),
+                    rs.getString("Kasir")
                 });
             }
 
@@ -64,7 +70,7 @@ public class RiwayatPembelian extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         TblLaporan = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -81,15 +87,18 @@ public class RiwayatPembelian extends javax.swing.JFrame {
 
         TblLaporan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "No", "ID Transaksi", "Total Harga", "Bayar", "Kembalian", "Metode Pembayaran", "Tanggal", "Kasir"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TblLaporan);
+        jScrollPane2.setViewportView(TblLaporan);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 980, 450));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 1030, -1));
 
         jButton1.setText("Detail");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +106,7 @@ public class RiwayatPembelian extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 710, 110, 35));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 660, 110, 35));
 
         jButton3.setText("Cetak Laporan");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -105,19 +114,19 @@ public class RiwayatPembelian extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 710, 119, 40));
-        getContentPane().add(Tam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 120, 190, 35));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 660, 119, 40));
+        getContentPane().add(Tam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 60, 190, 35));
 
         Sampai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Sampai.setForeground(new java.awt.Color(255, 255, 255));
         Sampai.setText("Sampai Tanggal");
-        getContentPane().add(Sampai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 160, -1, -1));
+        getContentPane().add(Sampai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 100, -1, -1));
 
         Dari.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Dari.setForeground(new java.awt.Color(255, 255, 255));
         Dari.setText("Dari Tanggal");
-        getContentPane().add(Dari, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 100, -1, -1));
-        getContentPane().add(sam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 190, 190, 35));
+        getContentPane().add(Dari, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 40, -1, -1));
+        getContentPane().add(sam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 130, 190, 35));
 
         jButton4.setText("Cek Laporan");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +134,7 @@ public class RiwayatPembelian extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 710, 140, 40));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 660, 140, 40));
         getContentPane().add(svg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
 
         png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Laporan.png"))); // NOI18N
@@ -150,10 +159,11 @@ public class RiwayatPembelian extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) TblLaporan.getModel();
         model.setRowCount(0); // Clear previous data
 
-        String sql = "SELECT t.ID_Transaksi, t.Tanggal, t.Jumlah_Harga,"
-        + "u.Username AS Nama_Kasir FROM transaksi t "
-        + "JOIN users u ON t.ID_User = u.ID_User "
-        + "WHERE t.Tanggal BETWEEN ? AND ?";
+        String sql = "SELECT t.ID_Transaksi, t.Jumlah_Harga AS Total_Harga, t.Pembayaran AS Bayar, "
+                + "t.Kembalian, t.Tanggal, u.Username AS Kasir "
+                + "FROM transaksi t "
+                + "JOIN users u ON t.ID_User = u.ID_User "
+                + "WHERE t.Tanggal BETWEEN ? AND ?";
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/kasirkoperasismada", "root", ""); PreparedStatement pst = conn.prepareStatement(sql)) {
 
@@ -162,19 +172,23 @@ public class RiwayatPembelian extends javax.swing.JFrame {
 
             ResultSet rs = pst.executeQuery();
             int no = 1;
+
             while (rs.next()) {
                 model.addRow(new Object[]{
                     no++,
-                    rs.getString("ID_Transaksi"),
-                    rs.getString("Jumlah_Harga"),
-                    rs.getString("Nama_Kasir"), // Updated field
-                    rs.getDate("Tanggal")
+                    rs.getInt("ID_Transaksi"),
+                    rs.getDouble("Total_Harga"),
+                    rs.getDouble("Bayar"),
+                    rs.getDouble("Kembalian"),
+                    rs.getDate("Tanggal"),
+                    rs.getString("Kasir")
                 });
             }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Gagal mengambil data: " + e.getMessage());
         }
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -236,7 +250,7 @@ public class RiwayatPembelian extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel png;
     private com.toedter.calendar.JDateChooser sam;
     private javax.swing.JLabel svg;
