@@ -172,7 +172,7 @@ public class Kasir extends javax.swing.JFrame {
         getContentPane().add(TxtBayar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 370, 180, 60));
 
         BtnBayar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        BtnBayar.setForeground(new java.awt.Color(255, 255, 255));
+        BtnBayar.setForeground(new java.awt.Color(0, 0, 0));
         BtnBayar.setText("Bayar");
         BtnBayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -353,7 +353,7 @@ public class Kasir extends javax.swing.JFrame {
 
             if (cetak == JOptionPane.YES_OPTION) {
                 try {
-                    String jrxmlPath = "src/Nota/report1.jrxml";
+                    String jrxmlPath = "src/Nota/report1_fixed.jrxml";
                     JasperReport jasperReport = JasperCompileManager.compileReport(jrxmlPath);
 
                     // Siapkan parameter
@@ -400,8 +400,11 @@ public class Kasir extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnBarangMouseClicked
 
     private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnLaporanMouseClicked
+        RiwayatPembelian abc = new RiwayatPembelian();
+        abc.setVisible(true);
+        abc.pack();
+        abc.setLocationRelativeTo(null);
+        this.dispose();    }//GEN-LAST:event_BtnLaporanMouseClicked
 
     private void BtnUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUserMouseClicked
         // TODO add your handling code here:
