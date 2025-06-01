@@ -42,6 +42,7 @@ public class TambahUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        TxtNomer1 = new javax.swing.JTextField();
         TxtNomer = new javax.swing.JTextField();
         TxtUsername = new javax.swing.JTextField();
         RoleCombo = new javax.swing.JComboBox<>();
@@ -55,9 +56,25 @@ public class TambahUser extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        TxtNomer1.setBackground(new java.awt.Color(255, 255, 255));
+        TxtNomer1.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
+        TxtNomer1.setForeground(new java.awt.Color(0, 0, 0));
+        TxtNomer1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TxtNomer1.setText("Input RFID");
+        TxtNomer1.setBorder(null);
+        TxtNomer1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TxtNomer1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TxtNomer1FocusLost(evt);
+            }
+        });
+        getContentPane().add(TxtNomer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 510, 620, 40));
+
         TxtNomer.setBackground(new java.awt.Color(255, 255, 255));
         TxtNomer.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
-        TxtNomer.setForeground(new java.awt.Color(102, 102, 102));
+        TxtNomer.setForeground(new java.awt.Color(0, 0, 0));
         TxtNomer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TxtNomer.setText("Input Nomer");
         TxtNomer.setBorder(null);
@@ -69,11 +86,11 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtNomerFocusLost(evt);
             }
         });
-        getContentPane().add(TxtNomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 434, 620, 55));
+        getContentPane().add(TxtNomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 434, 620, 40));
 
         TxtUsername.setBackground(new java.awt.Color(255, 255, 255));
         TxtUsername.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
-        TxtUsername.setForeground(new java.awt.Color(102, 102, 102));
+        TxtUsername.setForeground(new java.awt.Color(0, 0, 0));
         TxtUsername.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TxtUsername.setText("Input Username");
         TxtUsername.setBorder(null);
@@ -85,15 +102,20 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtUsernameFocusLost(evt);
             }
         });
-        getContentPane().add(TxtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 281, 620, 55));
+        getContentPane().add(TxtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 281, 620, 40));
 
         RoleCombo.setBackground(new java.awt.Color(255, 255, 255));
         RoleCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kasir", "Admin" }));
-        getContentPane().add(RoleCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 510, 630, 60));
+        RoleCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RoleComboActionPerformed(evt);
+            }
+        });
+        getContentPane().add(RoleCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 560, 630, 40));
 
         TxtNama.setBackground(new java.awt.Color(255, 255, 255));
         TxtNama.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
-        TxtNama.setForeground(new java.awt.Color(102, 102, 102));
+        TxtNama.setForeground(new java.awt.Color(0, 0, 0));
         TxtNama.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TxtNama.setText("Input Nama");
         TxtNama.setBorder(null);
@@ -110,11 +132,11 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtNamaActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 204, 620, 55));
+        getContentPane().add(TxtNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 204, 620, 40));
 
         TxtPassword.setBackground(new java.awt.Color(255, 255, 255));
         TxtPassword.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
-        TxtPassword.setForeground(new java.awt.Color(102, 102, 102));
+        TxtPassword.setForeground(new java.awt.Color(0, 0, 0));
         TxtPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TxtPassword.setText("Input Password");
         TxtPassword.setBorder(null);
@@ -126,7 +148,7 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtPasswordFocusLost(evt);
             }
         });
-        getContentPane().add(TxtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 358, 620, 55));
+        getContentPane().add(TxtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 358, 620, 40));
 
         BtnTambah.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         BtnTambah.setText("Tambah User");
@@ -160,6 +182,7 @@ public class TambahUser extends javax.swing.JFrame {
         String password = TxtPassword.getText().trim();
         String nomer = TxtNomer.getText().trim();
         String role = RoleCombo.getSelectedItem().toString();
+        String rfid = TxtNomer1.getText().trim();
 
         if (nama.isEmpty() || username.isEmpty() || password.isEmpty() || nomer.isEmpty() || role.equals("Pilih Role")) {
             JOptionPane.showMessageDialog(this, "Semua field harus diisi dan role harus dipilih!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -172,7 +195,6 @@ public class TambahUser extends javax.swing.JFrame {
             try (Connection conn = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/kasirkoperasismada", "root", "")) {
 
-                // Cek apakah username sudah digunakan
                 String cekSql = "SELECT * FROM users WHERE Username = ?";
                 try (PreparedStatement cekStmt = conn.prepareStatement(cekSql)) {
                     cekStmt.setString(1, username);
@@ -184,13 +206,14 @@ public class TambahUser extends javax.swing.JFrame {
                 }
 
                 // Simpan user baru
-                String insertSql = "INSERT INTO users (Nama, Username, Password, No_Telp, Role) VALUES (?, ?, ?, ?, ?)";
+                String insertSql = "INSERT INTO users (Nama, Username, Password, No_Telp, Role, RFID) VALUES (?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
                     insertStmt.setString(1, nama);
                     insertStmt.setString(2, username);
                     insertStmt.setString(3, password);
                     insertStmt.setString(4, nomer);
                     insertStmt.setString(5, role);
+                    insertStmt.setString(6, rfid);
                     insertStmt.executeUpdate();
                 }
 
@@ -269,6 +292,20 @@ public class TambahUser extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TxtNomerFocusLost
 
+    private void TxtNomer1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtNomer1FocusGained
+        if (TxtNomer1.getText().equals("Input RFID")) {
+            TxtNomer1.setText("");
+        }    }//GEN-LAST:event_TxtNomer1FocusGained
+
+    private void TxtNomer1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtNomer1FocusLost
+        if (TxtNomer1.getText().isEmpty()) {
+            TxtNomer1.setText("Input RFID");
+        }    }//GEN-LAST:event_TxtNomer1FocusLost
+
+    private void RoleComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RoleComboActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,6 +350,7 @@ public class TambahUser extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> RoleCombo;
     private javax.swing.JTextField TxtNama;
     private javax.swing.JTextField TxtNomer;
+    private javax.swing.JTextField TxtNomer1;
     private javax.swing.JTextField TxtPassword;
     private javax.swing.JTextField TxtUsername;
     private javax.swing.JLabel jLabel1;

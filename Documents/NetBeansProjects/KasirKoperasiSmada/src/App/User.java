@@ -1,8 +1,6 @@
 package App;
 
 
-
-import App.*;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
@@ -18,13 +16,15 @@ public class User extends javax.swing.JFrame {
 
     public User() {
         initComponents();
+        
         connect();
+        
         loadData("");
+        
         svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/User.svg")));
 
     }
 
-    // Koneksi ke database
     void connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -34,7 +34,7 @@ public class User extends javax.swing.JFrame {
         }
     }
 
-  void loadData(String keyword) {
+ void loadData(String keyword) {
     DefaultTableModel model = new DefaultTableModel(
         new String[]{"No", "ID", "Username", "Nama", "No_Telp"}, 0);
     try {
@@ -49,14 +49,15 @@ public class User extends javax.swing.JFrame {
                 rs.getString("Id_User"),
                 rs.getString("Username"),
                 rs.getString("Nama"),
-                rs.getInt("No_Telp")
+                rs.getString("No_Telp") // gunakan getString
             });
         }
-        TblBarang.setModel(model);
+        TblUser.setModel(model); // ganti jika TblBarang salah
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Gagal load data: " + e.getMessage());
     }
 }
+
 
 
     /**
@@ -69,7 +70,7 @@ public class User extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        TblBarang = new javax.swing.JTable();
+        TblUser = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         BtnHapus = new javax.swing.JButton();
         BtnTambah = new javax.swing.JButton();
@@ -83,7 +84,7 @@ public class User extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TblBarang.setModel(new javax.swing.table.DefaultTableModel(
+        TblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -94,7 +95,7 @@ public class User extends javax.swing.JFrame {
                 "ID", "Username", "Nama", "Nomer"
             }
         ));
-        jScrollPane1.setViewportView(TblBarang);
+        jScrollPane1.setViewportView(TblUser);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 880, 490));
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(359, 58, 876, 60));
@@ -239,7 +240,7 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JLabel BtnKasir;
     private javax.swing.JLabel BtnLaporan;
     private javax.swing.JButton BtnTambah;
-    private javax.swing.JTable TblBarang;
+    private javax.swing.JTable TblUser;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel png;
