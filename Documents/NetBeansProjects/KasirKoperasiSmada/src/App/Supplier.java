@@ -24,7 +24,7 @@ public class Supplier extends javax.swing.JFrame {
      */
     public Supplier() {
         initComponents();
-                svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Supplier (1).svg")));
+        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Supplier (1).svg")));
 
         koneksi();
         loadSupplierData();
@@ -68,11 +68,10 @@ public class Supplier extends javax.swing.JFrame {
                 String barcode = (rs.getString("barcode") != null) ? rs.getString("barcode") : "N/A";
 
                 model.addRow(new Object[]{
-                    
                     rs.getString("nama_supplier"),
                     rs.getString("nama_barang"),
                     rs.getInt("jumlah_barang"),
-                    rs.getString("telepon"),                   
+                    rs.getString("telepon"),
                     rs.getString("barcode"),
                     rs.getDate("tanggal_masuk"),
                     rs.getDouble("harga_jual")
@@ -98,7 +97,6 @@ public class Supplier extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         btnSV = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -148,16 +146,6 @@ public class Supplier extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 170, 40));
-
-        btnEdit.setBackground(new java.awt.Color(204, 204, 255));
-        btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEdit.setText("EDIT");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 170, 40));
 
         btnClear.setBackground(new java.awt.Color(204, 204, 255));
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -291,145 +279,79 @@ public class Supplier extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-         try {
-            int row = TabelSupplier.getSelectedRow();
-            if (row == -1) {
-                JOptionPane.showMessageDialog(null, "Pilih data yang ingin diedit!");
-                return;
-            }
-
-            // Ambil ID jika disimpan di struktur data lain, atau gunakan kolom ID tersembunyi
-            // Jika tidak ada, kamu perlu menggunakan cara lain untuk update
-            // Misalnya pakai "Nama Supplier" dan "Nama Barang" sebagai unique key sementara
-            String namaSupplier = nmsup.getText();
-            String namaBarang = nmb.getText();
-
-            String sql = "UPDATE supplier SET nama_supplier=?, telepon=?, nama_barang=?, harga_jual=?, jumlah_barang=?, tanggal_masuk=? WHERE nama_supplier=? AND nama_barang=?";
-            pst = con.prepareStatement(sql);
-
-            pst.setString(1, nmsup.getText()); // nama_supplier
-            pst.setString(2, tlp.getText());   // telepon
-            pst.setString(3, nmb.getText());   // nama_barang
-
-            try {
-                pst.setDouble(4, Double.parseDouble(hrgjual.getText())); // harga_jual
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Harga jual harus berupa angka!");
-                return;
-            }
-
-            try {
-                pst.setInt(5, Integer.parseInt(jumb.getText())); // jumlah_barang
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Jumlah barang harus berupa angka!");
-                return;
-            }
-
-            Date tanggal = TglM.getDate();
-            if (tanggal == null) {
-                JOptionPane.showMessageDialog(null, "Tanggal masuk tidak boleh kosong!");
-                return;
-            }
-            String tanggalStr = new SimpleDateFormat("yyyy-MM-dd").format(tanggal);
-            pst.setString(6, tanggalStr); // tanggal_masuk
-
-            pst.setString(7, namaSupplier); // WHERE nama_supplier=?
-            pst.setString(8, namaBarang);   // AND nama_barang=?
-
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
-
-            // Update tampilan tabel
-            DefaultTableModel model = (DefaultTableModel) TabelSupplier.getModel();
-            model.setValueAt(nmsup.getText(), row, 0);   // Nama Supplier           
-            model.setValueAt(nmb.getText(), row, 1);     // Nama Barang
-            model.setValueAt(jumb.getText(), row, 2);    // Jumlah Barang
-            model.setValueAt(tlp.getText(), row, 3);     // No Telepon
-            model.setValueAt(bcode.getText(), row, 4);   // Barcode
-            model.setValueAt(tanggalStr, row, 5);        // Tanggal Masuk
-            model.setValueAt(hrgjual.getText(), row, 6); // Harga Jual           
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal mengedit data: " + e.getMessage());
-        }
-    }//GEN-LAST:event_btnEditActionPerformed
-
     private void btnSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSVActionPerformed
-        try {
-            Date tanggal = TglM.getDate();
-            if (tanggal == null) {
-                JOptionPane.showMessageDialog(null, "Silakan pilih Tanggal Masuk terlebih dahulu!");
-                return;
-            }
+      try {
+    Date tanggal = TglM.getDate();
+    if (tanggal == null) {
+        JOptionPane.showMessageDialog(null, "Silakan pilih Tanggal Masuk terlebih dahulu!");
+        return;
+    }
 
-            String tanggalStr = new SimpleDateFormat("yyyy-MM-dd").format(tanggal);
+    String tanggalStr = new SimpleDateFormat("yyyy-MM-dd").format(tanggal);
 
-            // 1. Simpan data ke tabel supplier
-            String sql = "INSERT INTO supplier (nama_supplier, telepon, nama_barang, harga_jual, jumlah_barang, tanggal_masuk) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pst.setString(1, nmsup.getText());
-            pst.setString(2, tlp.getText());
-            pst.setString(3, nmb.getText());
-            pst.setString(4, hrgjual.getText());
-            pst.setString(5, jumb.getText());
-            pst.setString(6, tanggalStr);
-            pst.executeUpdate();
+    // 1. Simpan data ke tabel supplier
+    String sql = "INSERT INTO supplier (nama_supplier, telepon, nama_barang, harga_jual, jumlah_barang, tanggal_masuk) VALUES (?, ?, ?, ?, ?, ?)";
+    PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+    pst.setString(1, nmsup.getText());
+    pst.setString(2, tlp.getText());
+    pst.setString(3, nmb.getText());
+    pst.setString(4, hrgjual.getText());
+    pst.setString(5, jumb.getText());
+    pst.setString(6, tanggalStr);
+    pst.executeUpdate();
 
-            // 2. Ambil id_supplier yang baru saja dimasukkan
-            ResultSet generatedKeys = pst.getGeneratedKeys();
-            int idSupplierBaru = 0;
-            if (generatedKeys.next()) {
-                idSupplierBaru = generatedKeys.getInt(1);
-            }
+    // 2. Ambil id_supplier yang baru saja dimasukkan
+    ResultSet generatedKeys = pst.getGeneratedKeys();
+    int idSupplierBaru = 0;
+    if (generatedKeys.next()) {
+        idSupplierBaru = generatedKeys.getInt(1);
+    }
 
-            JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
+    JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
 
-            // 3. Tambahkan data ke tabel GUI
-            DefaultTableModel model = (DefaultTableModel) TabelSupplier.getModel();
-            int no = model.getRowCount() + 1;
-            model.addRow(new Object[]{
-                no,
-                nmsup.getText(),
-                tlp.getText(),
-                nmb.getText(),
-                hrgjual.getText(),
-                jumb.getText(),
-                bcode.getText(),
-                tanggalStr
-            });
+    // ✅ 3. Tambahkan data ke tabel tampilan (JTable) sesuai urutan kolom
+    DefaultTableModel model = (DefaultTableModel) TabelSupplier.getModel();
+    model.addRow(new Object[]{
+        nmsup.getText(),     // Nama Supplier
+        nmb.getText(),       // Nama Barang
+        jumb.getText(),      // Jumlah Barang
+        tlp.getText(),       // No. Telepon
+        bcode.getText(),     // Barcode
+        tanggalStr,          // Tanggal Masuk
+        hrgjual.getText()    // Harga Jual
+    });
 
-            // 4. Cek apakah barang sudah ada
-            String checkSql = "SELECT Stok FROM barang WHERE Nama_Barang = ?";
-            PreparedStatement checkPst = con.prepareStatement(checkSql);
-            checkPst.setString(1, nmb.getText());
-            ResultSet rs = checkPst.executeQuery();
+    // 4. Cek apakah barang sudah ada di tabel barang
+    String checkSql = "SELECT Stok FROM barang WHERE Nama_Barang = ?";
+    PreparedStatement checkPst = con.prepareStatement(checkSql);
+    checkPst.setString(1, nmb.getText());
+    ResultSet rs = checkPst.executeQuery();
 
-            if (rs.next()) {
-                // 5. Jika barang sudah ada, update stok
-                int currentStock = rs.getInt("Stok");
-                int newStock = currentStock + Integer.parseInt(jumb.getText());
+    if (rs.next()) {
+        // 5. Jika ada, update stok
+        int currentStock = rs.getInt("Stok");
+        int newStock = currentStock + Integer.parseInt(jumb.getText());
 
-                String updateSql = "UPDATE barang SET Stok = ? WHERE Nama_Barang = ?";
-                PreparedStatement updatePst = con.prepareStatement(updateSql);
-                updatePst.setInt(1, newStock);
-                updatePst.setString(2, nmb.getText());
-                updatePst.executeUpdate();
-            } else {
-                // 6. Jika barang belum ada, insert dengan id_supplier
-                String insertSql = "INSERT INTO barang (Nama_Barang, Harga, Stok, Barcode, id_supplier) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement insertPst = con.prepareStatement(insertSql);
-                insertPst.setString(1, nmb.getText());
-                insertPst.setDouble(2, Double.parseDouble(hrgjual.getText()));
-                insertPst.setInt(3, Integer.parseInt(jumb.getText()));
-                insertPst.setString(4, bcode.getText());
-                insertPst.setInt(5, idSupplierBaru); // foreign key dari supplier
-                insertPst.executeUpdate();
-            }
+        String updateSql = "UPDATE barang SET Stok = ? WHERE Nama_Barang = ?";
+        PreparedStatement updatePst = con.prepareStatement(updateSql);
+        updatePst.setInt(1, newStock);
+        updatePst.setString(2, nmb.getText());
+        updatePst.executeUpdate();
+    } else {
+        // 6. Jika belum ada, insert ke tabel barang
+        String insertSql = "INSERT INTO barang (Nama_Barang, Harga, Stok, Barcode, id_supplier) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement insertPst = con.prepareStatement(insertSql);
+        insertPst.setString(1, nmb.getText());
+        insertPst.setDouble(2, Double.parseDouble(hrgjual.getText()));
+        insertPst.setInt(3, Integer.parseInt(jumb.getText()));
+        insertPst.setString(4, bcode.getText());
+        insertPst.setInt(5, idSupplierBaru);
+        insertPst.executeUpdate();
+    }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal menyimpan data: " + e.getMessage());
-        }
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Gagal menyimpan data: " + e.getMessage());
+}
 
     }//GEN-LAST:event_btnSVActionPerformed
 
@@ -500,7 +422,6 @@ public class Supplier extends javax.swing.JFrame {
     private javax.swing.JTextField bcode;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSV;
     private javax.swing.JTextField hrgjual;
     private javax.swing.JLabel jLabel1;

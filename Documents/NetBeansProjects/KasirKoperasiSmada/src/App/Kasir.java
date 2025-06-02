@@ -325,7 +325,6 @@ public class Kasir extends javax.swing.JFrame {
                             }
                         }
 
-                        // Insert into detail_transaksi
                         String insertBarangTerjualQuery = "INSERT INTO detail_transaksi (ID_Transaksi, ID_Barang, Qty, Subtotal) VALUES (?, ?, ?, ?)";
                         PreparedStatement barangTerjualStatement = connection.prepareStatement(insertBarangTerjualQuery);
 
@@ -335,7 +334,6 @@ public class Kasir extends javax.swing.JFrame {
                         barangTerjualStatement.setDouble(4, totalPenjualan);
                         barangTerjualStatement.executeUpdate();
 
-                        // Update stock in barang table
                         int newStock = currentStock - jumlahBarang;
                         String updateStockQuery = "UPDATE barang SET Stok = ? WHERE ID_Barang = ?";
                         PreparedStatement updateStockStatement = connection.prepareStatement(updateStockQuery);
@@ -353,11 +351,9 @@ public class Kasir extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Transaksi berhasil disimpan!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // Kosongkan tabel setelah pembayaran
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             model.setRowCount(0);
 
-            // Reset form transaksi
             TxtTotalHarga1.setText("");
             TxtBayar1.setText("");
             TxtKembalian.setText("");
@@ -366,7 +362,7 @@ public class Kasir extends javax.swing.JFrame {
 
             if (cetak == JOptionPane.YES_OPTION) {
                 try {
-                    String jrxmlPath = "src/Nota/report1_fixed.jrxml";
+                    String jrxmlPath = "src/Nota/nota.jrxml";
                     JasperReport jasperReport = JasperCompileManager.compileReport(jrxmlPath);
 
                     // Siapkan parameter
