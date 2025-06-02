@@ -1,8 +1,5 @@
 package App;
 
-
-
-import App.*;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
@@ -18,13 +15,15 @@ public class User extends javax.swing.JFrame {
 
     public User() {
         initComponents();
+
         connect();
+
         loadData("");
-        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/User.svg")));
+
+        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Kasir-Fix.svg")));
 
     }
 
-    // Koneksi ke database
     void connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -34,30 +33,28 @@ public class User extends javax.swing.JFrame {
         }
     }
 
-  void loadData(String keyword) {
-    DefaultTableModel model = new DefaultTableModel(
-        new String[]{"No", "ID", "Username", "Nama", "No_Telp"}, 0);
-    try {
-        String sql = "SELECT * FROM users WHERE Id_User LIKE ?";
-        PreparedStatement pst = conn.prepareStatement(sql);
-        pst.setString(1, "%" + keyword + "%");
-        ResultSet rs = pst.executeQuery();
-        int no = 1;
-        while (rs.next()) {
-            model.addRow(new Object[]{
-                no++,
-                rs.getString("Id_User"),
-                rs.getString("Username"),
-                rs.getString("Nama"),
-                rs.getInt("No_Telp")
-            });
+    void loadData(String keyword) {
+        DefaultTableModel model = new DefaultTableModel(
+                new String[]{"ID", "Username", "Nama", "No_Telp"}, 0);
+        try {
+            String sql = "SELECT * FROM users WHERE Id_User LIKE ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, "%" + keyword + "%");
+            ResultSet rs = pst.executeQuery();
+            int no = 1;
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("Id_User"),
+                    rs.getString("Username"),
+                    rs.getString("Nama"),
+                    rs.getString("No_Telp") // gunakan getString
+                });
+            }
+            TblUser.setModel(model); // ganti jika TblBarang salah
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal load data: " + e.getMessage());
         }
-        TblBarang.setModel(model);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Gagal load data: " + e.getMessage());
     }
-}
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,21 +66,19 @@ public class User extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        TblBarang = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        BtnHapus = new javax.swing.JButton();
+        TblUser = new javax.swing.JTable();
+        BtnKasir = new javax.swing.JLabel();
+        BtnDashboard = new javax.swing.JLabel();
+        BtnBarang = new javax.swing.JLabel();
+        BtnLaporan = new javax.swing.JLabel();
         BtnTambah = new javax.swing.JButton();
         svg = new javax.swing.JLabel();
         png = new javax.swing.JLabel();
-        BtnDashboard = new javax.swing.JLabel();
-        BtnBarang = new javax.swing.JLabel();
-        BtnKasir = new javax.swing.JLabel();
-        BtnLaporan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TblBarang.setModel(new javax.swing.table.DefaultTableModel(
+        TblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -94,18 +89,37 @@ public class User extends javax.swing.JFrame {
                 "ID", "Username", "Nama", "Nomer"
             }
         ));
-        jScrollPane1.setViewportView(TblBarang);
+        jScrollPane1.setViewportView(TblUser);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 880, 490));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(359, 58, 876, 60));
 
-        BtnHapus.setText("Hapus");
-        BtnHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnHapusActionPerformed(evt);
+        BtnKasir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnKasirMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 664, 185, 60));
+        getContentPane().add(BtnKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 200, 60));
+
+        BtnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnDashboardMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 200, 70));
+
+        BtnBarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBarangMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 180, 60));
+
+        BtnLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnLaporanMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 200, 60));
 
         BtnTambah.setText("Tambah");
         BtnTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -113,39 +127,11 @@ public class User extends javax.swing.JFrame {
                 BtnTambahActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 662, 185, 60));
+        getContentPane().add(BtnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 660, 185, 60));
         getContentPane().add(svg, new org.netbeans.lib.awtextra.AbsoluteConstraints(1390, 0, -1, -1));
 
-        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/User.png"))); // NOI18N
+        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Kasir-Fix.png"))); // NOI18N
         getContentPane().add(png, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        BtnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnDashboardMouseClicked(evt);
-            }
-        });
-        getContentPane().add(BtnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 200, 50));
-
-        BtnBarang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnBarangMouseClicked(evt);
-            }
-        });
-        getContentPane().add(BtnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 180, 60));
-
-        BtnKasir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnKasirMouseClicked(evt);
-            }
-        });
-        getContentPane().add(BtnKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 170, 50));
-
-        BtnLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnLaporanMouseClicked(evt);
-            }
-        });
-        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 170, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -157,10 +143,6 @@ public class User extends javax.swing.JFrame {
         tambah.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BtnTambahActionPerformed
-
-    private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnHapusActionPerformed
 
     private void BtnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDashboardMouseClicked
         Dashboard d = new Dashboard();
@@ -187,7 +169,7 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnKasirMouseClicked
 
     private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
-        Laporan l = new Laporan();
+        RiwayatPembelian l = new RiwayatPembelian();
         l.setVisible(true);
         l.pack();
         l.setLocationRelativeTo(null);
@@ -235,13 +217,11 @@ public class User extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BtnBarang;
     private javax.swing.JLabel BtnDashboard;
-    private javax.swing.JButton BtnHapus;
     private javax.swing.JLabel BtnKasir;
     private javax.swing.JLabel BtnLaporan;
     private javax.swing.JButton BtnTambah;
-    private javax.swing.JTable TblBarang;
+    private javax.swing.JTable TblUser;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel png;
     private javax.swing.JLabel svg;
     // End of variables declaration//GEN-END:variables

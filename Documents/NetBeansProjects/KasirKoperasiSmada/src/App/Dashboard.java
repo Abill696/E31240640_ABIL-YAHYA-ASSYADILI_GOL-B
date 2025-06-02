@@ -5,8 +5,10 @@ import javax.swing.JFrame;
 
 public class Dashboard extends javax.swing.JFrame {
 
+    
     public Dashboard() {
         initComponents();
+        
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Dashboard-FIx.svg")));
@@ -73,10 +75,11 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_pngMouseClicked
 
     private void BtnKasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnKasirMouseClicked
-        Kasir abc = new Kasir();
-        abc.setVisible(true);
-        abc.pack();
-        abc.setLocationRelativeTo(null);
+        Kasir m = new Kasir();
+        
+        m.setVisible(true);
+        m.pack();
+        m.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BtnKasirMouseClicked
 
@@ -89,7 +92,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnStockMouseClicked
 
     private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
-        Laporan abc = new Laporan();
+        RiwayatPembelian abc = new RiwayatPembelian();
         abc.setVisible(true);
         abc.pack();
         abc.setLocationRelativeTo(null);

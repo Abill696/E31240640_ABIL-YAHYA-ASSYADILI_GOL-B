@@ -193,7 +193,7 @@ public class DataBarang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
-        TambahBarang tambah = new TambahBarang();
+        Supplier tambah = new Supplier();
         tambah.setVisible(true);
         tambah.pack();
         tambah.setLocationRelativeTo(null);
@@ -254,7 +254,7 @@ public class DataBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnKasirMouseClicked
 
     private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
-        Laporan d = new Laporan();
+        RiwayatPembelian d = new RiwayatPembelian();
         d.setVisible(true);
         d.pack();
         d.setLocationRelativeTo(null);
