@@ -18,7 +18,7 @@ public class TambahUser extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Barang-Fix.svg")));
+        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Supplier (1).svg")));
     }
 
     @SuppressWarnings("unchecked")
@@ -160,7 +160,7 @@ public class TambahUser extends javax.swing.JFrame {
         getContentPane().add(svg, new org.netbeans.lib.awtextra.AbsoluteConstraints(1372, 786, -1, -1));
 
         png.setForeground(new java.awt.Color(102, 102, 102));
-        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Barang-Fix.png"))); // NOI18N
+        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Supplier (1).png"))); // NOI18N
         getContentPane().add(png, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
