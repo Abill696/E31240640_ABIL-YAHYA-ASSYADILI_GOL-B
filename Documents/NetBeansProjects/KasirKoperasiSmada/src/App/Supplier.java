@@ -73,7 +73,7 @@ public class Supplier extends javax.swing.JFrame {
                     rs.getString("nama_barang"),
                     rs.getInt("jumlah_barang"),
                     rs.getString("telepon"),                   
-                    rs.getInt("barcode"),
+                    rs.getString("barcode"),
                     rs.getDate("tanggal_masuk"),
                     rs.getDouble("harga_jual")
                 });

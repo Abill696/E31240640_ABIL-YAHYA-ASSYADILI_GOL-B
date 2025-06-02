@@ -201,7 +201,11 @@ public class DataBarang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
-        
+        Supplier d = new Supplier();
+        d.setVisible(true);
+        d.pack();
+        d.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_BtnTambahActionPerformed
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed

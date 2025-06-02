@@ -18,13 +18,14 @@ public class TambahUser extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Supplier (1).svg")));
+        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Barang-Fix.svg")));
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         TxtNomer1 = new javax.swing.JTextField();
         TxtNomer = new javax.swing.JTextField();
         TxtUsername = new javax.swing.JTextField();
@@ -38,6 +39,12 @@ public class TambahUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Poppins ExtraBold", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Tambah User");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 220, 50));
 
         TxtNomer1.setBackground(new java.awt.Color(255, 255, 255));
         TxtNomer1.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
@@ -53,7 +60,7 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtNomer1FocusLost(evt);
             }
         });
-        getContentPane().add(TxtNomer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 510, 620, 40));
+        getContentPane().add(TxtNomer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, 620, 40));
 
         TxtNomer.setBackground(new java.awt.Color(255, 255, 255));
         TxtNomer.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
@@ -69,7 +76,7 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtNomerFocusLost(evt);
             }
         });
-        getContentPane().add(TxtNomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 434, 620, 40));
+        getContentPane().add(TxtNomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 400, 620, 40));
 
         TxtUsername.setBackground(new java.awt.Color(255, 255, 255));
         TxtUsername.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
@@ -85,7 +92,7 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtUsernameFocusLost(evt);
             }
         });
-        getContentPane().add(TxtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 281, 620, 40));
+        getContentPane().add(TxtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 250, 620, 40));
 
         RoleCombo.setBackground(new java.awt.Color(255, 255, 255));
         RoleCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kasir", "Admin" }));
@@ -94,7 +101,7 @@ public class TambahUser extends javax.swing.JFrame {
                 RoleComboActionPerformed(evt);
             }
         });
-        getContentPane().add(RoleCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 560, 630, 40));
+        getContentPane().add(RoleCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 540, 630, 40));
 
         TxtNama.setBackground(new java.awt.Color(255, 255, 255));
         TxtNama.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
@@ -115,7 +122,7 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtNamaActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 204, 620, 40));
+        getContentPane().add(TxtNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 620, 40));
 
         TxtPassword.setBackground(new java.awt.Color(255, 255, 255));
         TxtPassword.setFont(new java.awt.Font("Poppins ExtraBold", 2, 12)); // NOI18N
@@ -131,7 +138,7 @@ public class TambahUser extends javax.swing.JFrame {
                 TxtPasswordFocusLost(evt);
             }
         });
-        getContentPane().add(TxtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 358, 620, 40));
+        getContentPane().add(TxtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, 620, 40));
 
         BtnTambah.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         BtnTambah.setText("Tambah User");
@@ -153,7 +160,7 @@ public class TambahUser extends javax.swing.JFrame {
         getContentPane().add(svg, new org.netbeans.lib.awtextra.AbsoluteConstraints(1372, 786, -1, -1));
 
         png.setForeground(new java.awt.Color(102, 102, 102));
-        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Tambah User.png"))); // NOI18N
+        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Barang-Fix.png"))); // NOI18N
         getContentPane().add(png, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
@@ -336,6 +343,7 @@ public class TambahUser extends javax.swing.JFrame {
     private javax.swing.JTextField TxtNomer1;
     private javax.swing.JTextField TxtPassword;
     private javax.swing.JTextField TxtUsername;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel png;
     private javax.swing.JLabel svg;
     // End of variables declaration//GEN-END:variables
