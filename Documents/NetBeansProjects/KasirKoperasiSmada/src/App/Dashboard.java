@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 
 public class Dashboard extends javax.swing.JFrame {
 
+    
     public Dashboard() {
         initComponents();
         
@@ -74,11 +75,11 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_pngMouseClicked
 
     private void BtnKasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnKasirMouseClicked
-        Kasir abc = new Kasir();
+        Kasir m = new Kasir();
         
-        abc.setVisible(true);
-        abc.pack();
-        abc.setLocationRelativeTo(null);
+        m.setVisible(true);
+        m.pack();
+        m.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BtnKasirMouseClicked
 

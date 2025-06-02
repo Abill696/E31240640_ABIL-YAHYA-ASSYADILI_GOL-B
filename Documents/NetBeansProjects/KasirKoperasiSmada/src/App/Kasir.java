@@ -51,6 +51,7 @@ public class Kasir extends javax.swing.JFrame {
         BtnDashboard = new javax.swing.JLabel();
         BtnLaporan = new javax.swing.JLabel();
         BtnUser = new javax.swing.JLabel();
+        BtnLogout = new javax.swing.JLabel();
         barcodeTextField = new javax.swing.JTextField();
         TxtKembalian = new javax.swing.JTextField();
         TxtTotalHarga1 = new javax.swing.JTextField();
@@ -72,18 +73,18 @@ public class Kasir extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Poppins SemiBold", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Kembali");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 470, 180, 30));
 
-        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Poppins SemiBold", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Tunai");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 340, 180, 30));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Total");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 210, 180, 30));
@@ -137,7 +138,19 @@ public class Kasir extends javax.swing.JFrame {
                 BtnUserMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 391, 192, 58));
+        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 192, 58));
+
+        BtnLogout.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BtnLogoutFocusGained(evt);
+            }
+        });
+        BtnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnLogoutMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 658, 192, 58));
 
         barcodeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,18 +397,18 @@ public class Kasir extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnBayarActionPerformed
 
     private void BtnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDashboardMouseClicked
-        Dashboard iFrame = new Dashboard();
-        iFrame.setVisible(true);
-        iFrame.pack();
-        iFrame.setLocationRelativeTo(null);
+        Dashboard d = new Dashboard();
+        d.setVisible(true);
+        d.pack();
+        d.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BtnDashboardMouseClicked
 
     private void BtnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBarangMouseClicked
-        DataBarang abc = new DataBarang();
-        abc.setVisible(true);
-        abc.pack();
-        abc.setLocationRelativeTo(null);
+        DataBarang db = new DataBarang();
+        db.setVisible(true);
+        db.pack();
+        db.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BtnBarangMouseClicked
 
@@ -407,20 +420,40 @@ public class Kasir extends javax.swing.JFrame {
         this.dispose();    }//GEN-LAST:event_BtnLaporanMouseClicked
 
     private void BtnUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUserMouseClicked
-        // TODO add your handling code here:
+        User u = new User();
+        u.setVisible(true);
+        u.pack();
+        u.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_BtnUserMouseClicked
 
     private void BtnUserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BtnUserFocusGained
-        User abc = new User();
-        abc.setVisible(true);
-        abc.pack();
-        abc.setLocationRelativeTo(null);
+        User u = new User();
+        u.setVisible(true);
+        u.pack();
+        u.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BtnUserFocusGained
 
     private void TxtKembalianFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtKembalianFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtKembalianFocusGained
+
+    private void BtnLogoutFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BtnLogoutFocusGained
+        Login l = new Login();
+        l.setVisible(true);
+        l.pack();
+        l.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnLogoutFocusGained
+
+    private void BtnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLogoutMouseClicked
+        Login l = new Login();
+        l.setVisible(true);
+        l.pack();
+        l.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnLogoutMouseClicked
     private void updateTotalHarga() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         double total = 0;
@@ -446,6 +479,7 @@ public class Kasir extends javax.swing.JFrame {
     private javax.swing.JButton BtnBayar;
     private javax.swing.JLabel BtnDashboard;
     private javax.swing.JLabel BtnLaporan;
+    private javax.swing.JLabel BtnLogout;
     private javax.swing.JLabel BtnUser;
     private javax.swing.JLabel JBarang3;
     private javax.swing.JTextField TotalHargaSeluruh2;

@@ -108,6 +108,7 @@ public class DataBarang extends javax.swing.JFrame {
         BtnLaporan = new javax.swing.JLabel();
         BtnKasir = new javax.swing.JLabel();
         BtnUser = new javax.swing.JLabel();
+        BtnLogout = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         BtnHapus = new javax.swing.JButton();
         BtnTambah = new javax.swing.JButton();
@@ -158,7 +159,14 @@ public class DataBarang extends javax.swing.JFrame {
                 BtnUserMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 391, 192, 58));
+        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 192, 58));
+
+        BtnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnLogoutMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 650, 192, 58));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,11 +201,7 @@ public class DataBarang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
-        TambahBarang tambah = new TambahBarang();
-        tambah.setVisible(true);
-        tambah.pack();
-        tambah.setLocationRelativeTo(null);
-        this.dispose();
+        
     }//GEN-LAST:event_BtnTambahActionPerformed
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
@@ -273,6 +277,14 @@ public class DataBarang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void BtnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLogoutMouseClicked
+        Login l = new Login();
+        l.setVisible(true);
+        l.pack();
+        l.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnLogoutMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -314,6 +326,7 @@ public class DataBarang extends javax.swing.JFrame {
     private javax.swing.JButton BtnHapus;
     private javax.swing.JLabel BtnKasir;
     private javax.swing.JLabel BtnLaporan;
+    private javax.swing.JLabel BtnLogout;
     private javax.swing.JButton BtnTambah;
     private javax.swing.JLabel BtnUser;
     private javax.swing.JTable TblBarang;
