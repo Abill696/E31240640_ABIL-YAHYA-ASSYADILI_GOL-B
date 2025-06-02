@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package App;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -10,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -56,8 +53,8 @@ public class Supplier extends javax.swing.JFrame {
         model.setRowCount(0); // Hapus data lama
 
         try {
-            String sql = "SELECT s.id_supplier, s.nama_supplier, s.telepon, s.nama_barang, s.harga_beli, "
-                    + "s.jumlah_barang, s.tanggal_masuk, b.barcode "
+            String sql = "SELECT s.id_supplier, s.nama_supplier, s.nama_barang, s.jumlah_barang, s.telepon, s.harga_jual, "
+                    + "s.tanggal_masuk, b.barcode "
                     + "FROM supplier s "
                     + "LEFT JOIN barang b ON s.nama_barang = b.nama_barang";
             pst = con.prepareStatement(sql);
@@ -71,14 +68,14 @@ public class Supplier extends javax.swing.JFrame {
                 String barcode = (rs.getString("barcode") != null) ? rs.getString("barcode") : "N/A";
 
                 model.addRow(new Object[]{
-                    no++,
+                    
                     rs.getString("nama_supplier"),
-                    rs.getString("telepon"),
                     rs.getString("nama_barang"),
-                    rs.getDouble("harga_beli"),
                     rs.getInt("jumlah_barang"),
-                    barcode,
-                    tanggal
+                    rs.getString("telepon"),                   
+                    rs.getInt("barcode"),
+                    rs.getDate("tanggal_masuk"),
+                    rs.getDouble("harga_jual")
                 });
             }
 
@@ -112,7 +109,7 @@ public class Supplier extends javax.swing.JFrame {
         nmsup = new javax.swing.JTextField();
         tlp = new javax.swing.JTextField();
         nmb = new javax.swing.JTextField();
-        hb = new javax.swing.JTextField();
+        hrgjual = new javax.swing.JTextField();
         jumb = new javax.swing.JTextField();
         bcode = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -187,7 +184,7 @@ public class Supplier extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No", "Nama Supplier", "No. Telepon", "Nama Barang", "Harga Beli", "Jumlah Barang", "Barcode", "Tanggal Masuk"
+                "Nama Supplier", "Nama Barang", "Jumlah Barang", "No. Telepon", "Barcode", "Tanggal Masuk", "Harga Jual"
             }
         ));
         TabelSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -214,15 +211,21 @@ public class Supplier extends javax.swing.JFrame {
         jLabel15.setText("Jumlah Barang");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 20));
         getContentPane().add(nmsup, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 240, 40));
+
+        tlp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tlpActionPerformed(evt);
+            }
+        });
         getContentPane().add(tlp, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 240, 40));
         getContentPane().add(nmb, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 240, 40));
 
-        hb.addActionListener(new java.awt.event.ActionListener() {
+        hrgjual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hbActionPerformed(evt);
+                hrgjualActionPerformed(evt);
             }
         });
-        getContentPane().add(hb, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 220, 240, 40));
+        getContentPane().add(hrgjual, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 220, 240, 40));
         getContentPane().add(jumb, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 240, 40));
 
         bcode.addActionListener(new java.awt.event.ActionListener() {
@@ -282,72 +285,74 @@ public class Supplier extends javax.swing.JFrame {
         nmsup.setText("");
         tlp.setText("");
         nmb.setText("");
-        hb.setText("");
+        hrgjual.setText("");
         jumb.setText("");
         bcode.setText("");
 
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-// Tombol Edit ditekan
-try {
-    int row = TabelSupplier.getSelectedRow();
-    if (row == -1) {
-        JOptionPane.showMessageDialog(null, "Pilih data yang ingin diedit!");
-        return;
-    }
+         try {
+            int row = TabelSupplier.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(null, "Pilih data yang ingin diedit!");
+                return;
+            }
 
-    // Ambil ID supplier dari kolom kedua (kolom ke-1, indeks 1) jika kolom pertama adalah "No"
-    int id_supplier = Integer.parseInt(TabelSupplier.getValueAt(row, 0).toString());
+            // Ambil ID jika disimpan di struktur data lain, atau gunakan kolom ID tersembunyi
+            // Jika tidak ada, kamu perlu menggunakan cara lain untuk update
+            // Misalnya pakai "Nama Supplier" dan "Nama Barang" sebagai unique key sementara
+            String namaSupplier = nmsup.getText();
+            String namaBarang = nmb.getText();
 
-    String sql = "UPDATE supplier SET nama_supplier=?, telepon=?, nama_barang=?, harga_beli=?, jumlah_barang=?, tanggal_masuk=? WHERE id_supplier=?";
-    pst = con.prepareStatement(sql);
+            String sql = "UPDATE supplier SET nama_supplier=?, telepon=?, nama_barang=?, harga_jual=?, jumlah_barang=?, tanggal_masuk=? WHERE nama_supplier=? AND nama_barang=?";
+            pst = con.prepareStatement(sql);
 
-    pst.setString(1, nmsup.getText());
-    pst.setString(2, tlp.getText());
-    pst.setString(3, nmb.getText());
+            pst.setString(1, nmsup.getText()); // nama_supplier
+            pst.setString(2, tlp.getText());   // telepon
+            pst.setString(3, nmb.getText());   // nama_barang
 
-    try {
-        pst.setDouble(4, Double.parseDouble(hb.getText()));
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Harga beli harus berupa angka!");
-        return;
-    }
+            try {
+                pst.setDouble(4, Double.parseDouble(hrgjual.getText())); // harga_jual
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Harga jual harus berupa angka!");
+                return;
+            }
 
-    try {
-        pst.setInt(5, Integer.parseInt(jumb.getText()));
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Jumlah barang harus berupa angka!");
-        return;
-    }
+            try {
+                pst.setInt(5, Integer.parseInt(jumb.getText())); // jumlah_barang
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Jumlah barang harus berupa angka!");
+                return;
+            }
 
-    Date tanggal = TglM.getDate();
-    if (tanggal == null) {
-        JOptionPane.showMessageDialog(null, "Tanggal masuk tidak boleh kosong!");
-        return;
-    }
-    String tanggalStr = new SimpleDateFormat("yyyy-MM-dd").format(tanggal);
-    pst.setString(6, tanggalStr);
+            Date tanggal = TglM.getDate();
+            if (tanggal == null) {
+                JOptionPane.showMessageDialog(null, "Tanggal masuk tidak boleh kosong!");
+                return;
+            }
+            String tanggalStr = new SimpleDateFormat("yyyy-MM-dd").format(tanggal);
+            pst.setString(6, tanggalStr); // tanggal_masuk
 
-    pst.setInt(7, id_supplier);
+            pst.setString(7, namaSupplier); // WHERE nama_supplier=?
+            pst.setString(8, namaBarang);   // AND nama_barang=?
 
-    pst.executeUpdate();
-    JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
 
-    // Update tampilan tabel
-    DefaultTableModel model = (DefaultTableModel) TabelSupplier.getModel();
-    model.setValueAt(nmsup.getText(), row, 1);   // Nama Supplier
-    model.setValueAt(tlp.getText(), row, 2);     // No Telepon
-    model.setValueAt(nmb.getText(), row, 3);     // Nama Barang
-    model.setValueAt(hb.getText(), row, 4);      // Harga Beli
-    model.setValueAt(jumb.getText(), row, 5);    // Jumlah Barang
-    model.setValueAt(bcode.getText(), row, 6);   // Barcode (view only)
-    model.setValueAt(tanggalStr, row, 7);        // Tanggal Masuk
+            // Update tampilan tabel
+            DefaultTableModel model = (DefaultTableModel) TabelSupplier.getModel();
+            model.setValueAt(nmsup.getText(), row, 0);   // Nama Supplier           
+            model.setValueAt(nmb.getText(), row, 1);     // Nama Barang
+            model.setValueAt(jumb.getText(), row, 2);    // Jumlah Barang
+            model.setValueAt(tlp.getText(), row, 3);     // No Telepon
+            model.setValueAt(bcode.getText(), row, 4);   // Barcode
+            model.setValueAt(tanggalStr, row, 5);        // Tanggal Masuk
+            model.setValueAt(hrgjual.getText(), row, 6); // Harga Jual           
 
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Gagal mengedit data: " + e.getMessage());
-}
-
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal mengedit data: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSVActionPerformed
@@ -361,12 +366,12 @@ try {
             String tanggalStr = new SimpleDateFormat("yyyy-MM-dd").format(tanggal);
 
             // 1. Simpan data ke tabel supplier
-            String sql = "INSERT INTO supplier (nama_supplier, telepon, nama_barang, harga_beli, jumlah_barang, tanggal_masuk) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO supplier (nama_supplier, telepon, nama_barang, harga_jual, jumlah_barang, tanggal_masuk) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, nmsup.getText());
             pst.setString(2, tlp.getText());
             pst.setString(3, nmb.getText());
-            pst.setString(4, hb.getText());
+            pst.setString(4, hrgjual.getText());
             pst.setString(5, jumb.getText());
             pst.setString(6, tanggalStr);
             pst.executeUpdate();
@@ -388,7 +393,7 @@ try {
                 nmsup.getText(),
                 tlp.getText(),
                 nmb.getText(),
-                hb.getText(),
+                hrgjual.getText(),
                 jumb.getText(),
                 bcode.getText(),
                 tanggalStr
@@ -415,7 +420,7 @@ try {
                 String insertSql = "INSERT INTO barang (Nama_Barang, Harga, Stok, Barcode, id_supplier) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement insertPst = con.prepareStatement(insertSql);
                 insertPst.setString(1, nmb.getText());
-                insertPst.setDouble(2, Double.parseDouble(hb.getText()));
+                insertPst.setDouble(2, Double.parseDouble(hrgjual.getText()));
                 insertPst.setInt(3, Integer.parseInt(jumb.getText()));
                 insertPst.setString(4, bcode.getText());
                 insertPst.setInt(5, idSupplierBaru); // foreign key dari supplier
@@ -429,21 +434,30 @@ try {
     }//GEN-LAST:event_btnSVActionPerformed
 
     private void TabelSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelSupplierMouseClicked
-        // TODO add your handling code here:
         int row = TabelSupplier.getSelectedRow();
         if (row != -1) {
-            nmsup.setText(TabelSupplier.getValueAt(row, 2).toString());
-            tlp.setText(TabelSupplier.getValueAt(row, 3).toString());
-            nmb.setText(TabelSupplier.getValueAt(row, 5).toString());
-            hb.setText(TabelSupplier.getValueAt(row, 6).toString());
-            jumb.setText(TabelSupplier.getValueAt(row, 7).toString());
-            bcode.setText(TabelSupplier.getValueAt(row, 8).toString());
+            nmsup.setText(TabelSupplier.getValueAt(row, 0).toString()); // Nama Supplier
+            nmb.setText(TabelSupplier.getValueAt(row, 1).toString());   // Nama Barang
+            jumb.setText(TabelSupplier.getValueAt(row, 2).toString());  // Jumlah Barang
+            tlp.setText(TabelSupplier.getValueAt(row, 3).toString());   // No. Telepon
+            bcode.setText(TabelSupplier.getValueAt(row, 4).toString()); // Barcode
+            try {
+                Date tgl = new SimpleDateFormat("yyyy-MM-dd").parse(TabelSupplier.getValueAt(row, 5).toString());
+                TglM.setDate(tgl);                                      // Tanggal Masuk
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Format tanggal salah: " + e.getMessage());
+            }
+            hrgjual.setText(TabelSupplier.getValueAt(row, 6).toString()); // Harga Jual
         }
     }//GEN-LAST:event_TabelSupplierMouseClicked
 
-    private void hbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hbActionPerformed
+    private void hrgjualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hrgjualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_hbActionPerformed
+    }//GEN-LAST:event_hrgjualActionPerformed
+
+    private void tlpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tlpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tlpActionPerformed
 
     /**
      * @param args the command line arguments
@@ -488,7 +502,7 @@ try {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSV;
-    private javax.swing.JTextField hb;
+    private javax.swing.JTextField hrgjual;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;

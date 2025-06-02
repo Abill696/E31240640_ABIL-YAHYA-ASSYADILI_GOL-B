@@ -71,6 +71,7 @@ public class User extends javax.swing.JFrame {
         BtnDashboard = new javax.swing.JLabel();
         BtnBarang = new javax.swing.JLabel();
         BtnLaporan = new javax.swing.JLabel();
+        BtnLogout = new javax.swing.JLabel();
         BtnTambah = new javax.swing.JButton();
         svg = new javax.swing.JLabel();
         png = new javax.swing.JLabel();
@@ -119,7 +120,14 @@ public class User extends javax.swing.JFrame {
                 BtnLaporanMouseClicked(evt);
             }
         });
-        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 200, 60));
+        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 300, 200, 60));
+
+        BtnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnLogoutMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 657, 200, 60));
 
         BtnTambah.setText("Tambah");
         BtnTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +184,14 @@ public class User extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BtnLaporanMouseClicked
 
+    private void BtnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLogoutMouseClicked
+        Login l = new Login();
+        l.setVisible(true);
+        l.pack();
+        l.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnLogoutMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -219,6 +235,7 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JLabel BtnDashboard;
     private javax.swing.JLabel BtnKasir;
     private javax.swing.JLabel BtnLaporan;
+    private javax.swing.JLabel BtnLogout;
     private javax.swing.JButton BtnTambah;
     private javax.swing.JTable TblUser;
     private javax.swing.JScrollPane jScrollPane1;
