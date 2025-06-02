@@ -27,10 +27,9 @@ public class TambahUser extends javax.swing.JFrame {
      */
     public TambahUser() {
         initComponents();
-
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        jLabel1.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Tambah User.svg")));
+        svg.setIcon(new FlatSVGIcon(getClass().getResource("/Design/Supplier (1).svg")));
     }
 
     /**
@@ -50,8 +49,8 @@ public class TambahUser extends javax.swing.JFrame {
         TxtPassword = new javax.swing.JTextField();
         BtnTambah = new javax.swing.JButton();
         BtnKembali = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        svg = new javax.swing.JLabel();
+        png = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -167,11 +166,11 @@ public class TambahUser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 680, 315, 51));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1372, 786, -1, -1));
+        getContentPane().add(svg, new org.netbeans.lib.awtextra.AbsoluteConstraints(1372, 786, -1, -1));
 
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Tambah User.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
+        png.setForeground(new java.awt.Color(102, 102, 102));
+        png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Tambah User.png"))); // NOI18N
+        getContentPane().add(png, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -353,7 +352,7 @@ public class TambahUser extends javax.swing.JFrame {
     private javax.swing.JTextField TxtNomer1;
     private javax.swing.JTextField TxtPassword;
     private javax.swing.JTextField TxtUsername;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel png;
+    private javax.swing.JLabel svg;
     // End of variables declaration//GEN-END:variables
 }

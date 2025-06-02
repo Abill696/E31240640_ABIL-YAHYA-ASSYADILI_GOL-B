@@ -82,13 +82,18 @@ public class RiwayatPembelian extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         TblLaporan = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnDetail = new javax.swing.JButton();
+        BtnBarang = new javax.swing.JLabel();
+        BtnLaporan = new javax.swing.JLabel();
+        BtnDashboard = new javax.swing.JLabel();
+        BtnKasir = new javax.swing.JLabel();
+        BtnUser = new javax.swing.JLabel();
+        BtnCetak = new javax.swing.JButton();
         Tam = new com.toedter.calendar.JDateChooser();
         Sampai = new javax.swing.JLabel();
         Dari = new javax.swing.JLabel();
         sam = new com.toedter.calendar.JDateChooser();
-        jButton4 = new javax.swing.JButton();
+        BtnCek = new javax.swing.JButton();
         svg = new javax.swing.JLabel();
         png = new javax.swing.JLabel();
 
@@ -110,21 +115,56 @@ public class RiwayatPembelian extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 1030, -1));
 
-        jButton1.setText("Detail");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtnDetail.setText("Detail");
+        BtnDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtnDetailActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 660, 110, 35));
+        getContentPane().add(BtnDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 660, 110, 40));
 
-        jButton3.setText("Cetak Laporan");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        BtnBarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBarangMouseClicked(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 660, 119, 40));
+        getContentPane().add(BtnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 213, 192, 58));
+
+        BtnLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnLaporanMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 192, 58));
+
+        BtnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnDashboardMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 35, 192, 58));
+
+        BtnKasir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnKasirMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 192, 58));
+
+        BtnUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnUserMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BtnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 192, 58));
+
+        BtnCetak.setText("Cetak Laporan");
+        BtnCetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCetakActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 660, 119, 40));
         getContentPane().add(Tam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 60, 190, 35));
 
         Sampai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -138,13 +178,13 @@ public class RiwayatPembelian extends javax.swing.JFrame {
         getContentPane().add(Dari, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 40, -1, -1));
         getContentPane().add(sam, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 130, 190, 35));
 
-        jButton4.setText("Cek Laporan");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        BtnCek.setText("Cek Laporan");
+        BtnCek.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                BtnCekActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 660, 140, 40));
+        getContentPane().add(BtnCek, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 660, 140, 40));
         getContentPane().add(svg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1366, 768));
 
         png.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Design/Laporan.png"))); // NOI18N
@@ -153,7 +193,7 @@ public class RiwayatPembelian extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void BtnCekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCekActionPerformed
         java.util.Date dariTanggal = Tam.getDate();
         java.util.Date sampaiTanggal = sam.getDate();
 
@@ -206,13 +246,13 @@ public class RiwayatPembelian extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Gagal mengambil data: " + e.getMessage());
         }
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_BtnCekActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_BtnCetakActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BtnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDetailActionPerformed
         int selectedRow = TblLaporan.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Pilih transaksi terlebih dahulu!");
@@ -221,7 +261,47 @@ public class RiwayatPembelian extends javax.swing.JFrame {
 
         String idTransaksi = TblLaporan.getValueAt(selectedRow, 1).toString(); // kolom 1 = IDTransaksi
         new DetailTransaksi((Frame) SwingUtilities.getWindowAncestor(this), idTransaksi).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BtnDetailActionPerformed
+
+    private void BtnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLaporanMouseClicked
+        RiwayatPembelian d = new RiwayatPembelian();
+        d.setVisible(true);
+        d.pack();
+        d.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnLaporanMouseClicked
+
+    private void BtnKasirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnKasirMouseClicked
+        Kasir d = new Kasir();
+        d.setVisible(true);
+        d.pack();
+        d.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnKasirMouseClicked
+
+    private void BtnUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUserMouseClicked
+        User d = new User();
+        d.setVisible(true);
+        d.pack();
+        d.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnUserMouseClicked
+
+    private void BtnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDashboardMouseClicked
+        Dashboard iFrame = new Dashboard();
+        iFrame.setVisible(true);
+        iFrame.pack();
+        iFrame.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnDashboardMouseClicked
+
+    private void BtnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBarangMouseClicked
+        DataBarang abc = new DataBarang();
+        abc.setVisible(true);
+        abc.pack();
+        abc.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_BtnBarangMouseClicked
 
     /**
      * @param args the command line arguments
@@ -260,13 +340,18 @@ public class RiwayatPembelian extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BtnBarang;
+    private javax.swing.JButton BtnCek;
+    private javax.swing.JButton BtnCetak;
+    private javax.swing.JLabel BtnDashboard;
+    private javax.swing.JButton BtnDetail;
+    private javax.swing.JLabel BtnKasir;
+    private javax.swing.JLabel BtnLaporan;
+    private javax.swing.JLabel BtnUser;
     private javax.swing.JLabel Dari;
     private javax.swing.JLabel Sampai;
     private com.toedter.calendar.JDateChooser Tam;
     private javax.swing.JTable TblLaporan;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel png;
     private com.toedter.calendar.JDateChooser sam;

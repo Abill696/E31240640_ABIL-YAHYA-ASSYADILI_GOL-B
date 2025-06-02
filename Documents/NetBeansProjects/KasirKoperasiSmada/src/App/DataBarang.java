@@ -193,7 +193,7 @@ public class DataBarang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
-        TambahBarang tambah = new TambahBarang();
+        Supplier tambah = new Supplier();
         tambah.setVisible(true);
         tambah.pack();
         tambah.setLocationRelativeTo(null);
